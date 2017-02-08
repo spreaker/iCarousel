@@ -171,7 +171,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     [_contentView addGestureRecognizer:tapGesture];
     
     //set up accessibility
-    self.accessibilityTraits = UIAccessibilityTraitAllowsDirectInteraction;
+    self.accessibilityTraits = self.accessibilityTraits | UIAccessibilityTraitAdjustable;
     self.isAccessibilityElement = YES;
     
 #else
@@ -2347,5 +2347,24 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 }
 
 #endif
+
+#pragma mark -
+#pragma mark Accessibility
+
+- (void)accessibilityIncrement
+{
+    if (self.currentItemIndex > 0)
+    {
+        [self scrollToItemAtIndex:(self.currentItemIndex - 1) animated:YES];
+    }
+}
+
+- (void)accessibilityDecrement
+{
+    if (self.currentItemIndex < (self.numberOfItems-1))
+    {
+        [self scrollToItemAtIndex:(self.currentItemIndex + 1) animated:YES];
+    }
+}
 
 @end
