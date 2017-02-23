@@ -2353,17 +2353,19 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (void)accessibilityIncrement
 {
-    if (self.currentItemIndex > 0)
+    if (self.currentItemIndex < (self.numberOfItems - 1))
     {
-        [self scrollToItemAtIndex:(self.currentItemIndex - 1) animated:YES];
+        [self scrollToItemAtIndex:(self.currentItemIndex + 1) animated:NO];
+        [_delegate carouselDidAccessibilityChange:self];
     }
 }
 
 - (void)accessibilityDecrement
 {
-    if (self.currentItemIndex < (self.numberOfItems-1))
+    if (self.currentItemIndex > 0)
     {
-        [self scrollToItemAtIndex:(self.currentItemIndex + 1) animated:YES];
+        [self scrollToItemAtIndex:(self.currentItemIndex - 1) animated:NO];
+        [_delegate carouselDidAccessibilityChange:self];
     }
 }
 
